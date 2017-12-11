@@ -114,7 +114,8 @@ char ** mytoc(char *str, char delim){
       }else{
 	letters = 0;
       }
-    }
+
+          }
     //check if the string ends with a word
     if(str[i+1] == 0){
       if(word == 1){
@@ -122,17 +123,15 @@ char ** mytoc(char *str, char delim){
 	for(j = 0; j < letters; j++){
 	  listOfWords[count][j] = str[startOfWord + j];
 	}
-	listOfWords[count][j-1] = 0;
-	listOfWords[count+1] = 0;
-
+	//listOfWords[count][j-1] = 0;
+	//listOfWords[count+1] = 0;
 	
       }
-      else{
-	
-	listOfWords[count] = 0;
-      }
+      
     }
     
   }
+  if(listOfWords[count] < (char*)20)
+    printf("testing\n");
   return listOfWords;
 }  

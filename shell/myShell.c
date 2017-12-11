@@ -56,7 +56,37 @@ int compare(char * str1, char * str2){
   return 0;
 }
 
+int arrayHas(char* str, char c){
+  int i;
+  for(i = 0; str[i] != 0; i++){
+    if(str[i] == c)
+      return 1;
+  }
+
+  return 0;
+}
+
 int execMethod(int argc, char ** argv, char ** envp){
+  /*
+  //find number of pipes
+  for(j = 0; list[j] != 0; j++){
+	if(arrayHas(list[j], '|'))
+	  numOfPipes++;
+      }
+
+  if(numOfPipes > 0){
+    int fd[2];
+    int d0 = dup(0);
+    int d1 = dup(1);
+
+    
+    
+    for(int k = 0; k < numOfPipes - 1; k++){
+      pid = fork();
+      if(pid == 0)
+	}
+  }
+  */
   int retVal = execve(argc,&argv[0],envp);
   printf("Program terminated with exit code %d\n", retVal);
   return 0;
@@ -65,14 +95,21 @@ int execMethod(int argc, char ** argv, char ** envp){
 int main(int argc, char**argv, char**en){
   char* command, *param[127];
   char * cmd;
+  
   while(1){
     
     printf("$ ");
     char str[1024];
-    fgets(str, 1000, stdin);
+    scanf("%s", str);
+    //fgets(str, 1000, stdin);
     //printf("str = %s", str);
     char** list = mytoc(str, ' ');
     int i;
+    int j;
+    int numOfPipes = 0;
+    //pipeFds[2];
+    //pipe(pipeFds);
+
     if(findLength(str) > 1){
       if(list[0] == "cd\0"){
 	int changed = chdir(list[1]);
@@ -83,8 +120,11 @@ int main(int argc, char**argv, char**en){
       for(i = 0; list[i] != 0; i++)
 	param[i] = copystr(list[i]);
       param[i]=0;
+      
+      // printf("number of pipes = %d\n",numOfPipes);
       if(compare(param[0], "exit") == 0)
 	break;
+ 
       if(fork() != 0)
 	wait(NULL);
       else{
